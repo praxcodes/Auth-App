@@ -31,6 +31,24 @@ export default function LoginPage(){
         /[0-9]/.test(password) &&
         /[^A-Za-z0-9]/.test(password);
       }
+    const handleClick=()=>{
+      if (buttonDisabled) {
+        return;
+    }
+
+    const isEmailValid = validateEmail(user.email);
+    const isPasswordValid = validatePassword(user.password);
+
+    if (!isEmailValid && !isPasswordValid) {
+        alert('Invalid email and invalid password');
+    } else if (!isEmailValid) {
+        alert('Invalid email');
+    } else if (!isPasswordValid) {
+        alert('Invalid password');
+    } else {
+        onLogin();
+    }
+    };
 
     const onLogin=async() =>{
       try {
@@ -83,7 +101,7 @@ return(
         onChange={(e)=>setUser({...user,password: e.target.value})}
         placeholder="password"
         />
-        <button onClick={buttonDisabled? null : onLogin}
+        <button onClick={handleClick}
         className="p-2 border border-gray-300 rounded-lg mb-4 focus:outline-none focus:border-gray-600"
         >{buttonDisabled ? "no login" :"login here "} </button>
         <Link href="/signup">visit login page</Link>
